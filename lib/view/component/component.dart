@@ -1,8 +1,8 @@
 import 'package:animations/animations.dart';
-import 'package:business_course/injector.dart';
 import 'package:flutter/material.dart';
 import 'package:flash/flash.dart';
 
+import '../../injector.dart';
 import '../../theme.dart';
 
 export 'package:flash/flash.dart' show showFlash;

@@ -6,11 +6,11 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 // import 'package:flutter/material.dart';
-import 'package:business_course/model/model.dart';
+import 'package:apr/model/model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // import 'package:business_course/main.dart';
-import 'package:business_course/service/service.dart';
+import 'package:apr/service/service.dart';
 import 'package:flutter/foundation.dart';
 
 void main() {

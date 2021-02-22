@@ -1,8 +1,15 @@
 part of 'service.dart';
-class API {
+class API implements Service {
 
-  // final String _homeBase = 'sheetdb.io';
-  // final String _subBase = 'api/v1/y06kd2tyjoxaf';
+  @override
+  void dispose() {
+    // TODO: implement dispose
+  }
+
+  @override
+  void init() {
+    // TODO: implement init
+  }
 
   final String _homeBase = '34.101.181.128';
   final String _subBase = 'APR';
