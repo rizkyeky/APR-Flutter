@@ -8,15 +8,13 @@ class KategoriService implements Service {
   }
 
   @override
-  Future<void> init() async {
-    // final data = await getKategori();
-  }
+  void init() {
 
-  // List<>
+  }
 
   final http.Client _client = http.Client();
   
-  Future<ServiceResult<List>> getIdeAll() async {
+  Future<ServiceResult<List<Ide>>> getIdeAll() async {
     try {      
       // debugPrint(_api.ideAll.toString());
       
@@ -47,7 +45,7 @@ class KategoriService implements Service {
     }
   }
 
-  Future<ServiceResult<List>> getPelatihanAll() async {
+  Future<ServiceResult<List<Pelatihan>>> getPelatihanAll() async {
     try {
       // debugPrint(_api.pelatihanAll.toString());
 
