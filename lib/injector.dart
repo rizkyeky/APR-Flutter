@@ -1,7 +1,6 @@
 
 import 'dart:typed_data';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get_it/get_it.dart';
@@ -16,7 +15,7 @@ class Injector {
   final GetIt _getIt = GetIt.instance;
 
   Future<void> init() async {
-    // _getIt.registerLazySingleton(() => ConnectionService());
+    _getIt.registerLazySingleton(() => ConnectionService());
     _getIt.registerLazySingleton(() => KategoriService());
     _getIt.registerLazySingleton(() => API());
 
@@ -32,7 +31,7 @@ class Injector {
   }
 
   Future<void> setup() async {
-    // getService<ConnectionService>().init();
+    await getService<ConnectionService>().init();
     await cacheImagePlaceHolder('assets/background/content.jpg');
   }
 

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 // import 'package:animations/animations.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:skeleton_animation/skeleton_animation.dart';
 
 import '../../bloc/bloc.dart';
 import '../../injector.dart';
+import '../../model/model.dart';
 
 import '../../theme.dart';
 import '../component/component.dart';
