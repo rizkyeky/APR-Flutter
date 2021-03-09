@@ -45,6 +45,19 @@ void main() {
       }
 
     });
+
+    test('Get Ide', () async {
+      final KategoriService _service = KategoriService();
+      final result = await _service.getIde(1);
+      
+      if (result.isSucess) {
+
+        debugPrint(result.value.toString());
+
+      } else {
+        debugPrint(result.massage);
+      }
+    });
   });
 
   group('Model', () {

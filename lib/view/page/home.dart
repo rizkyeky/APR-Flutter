@@ -52,10 +52,10 @@ class HomePage extends Page<HomeBloc> {
             viewportFraction: 1,
             height: 300,
           ),
-          itemBuilder: (_, index) => Padding(
+          itemBuilder: (_, index, realIndex) => Padding(
             padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: FutureBuilder(
-              future: Future.delayed(const Duration(seconds: 5)),
+            child: FutureBuilder<ServiceResult<Ide>>(
+              future: bloc.kategoriService.getIde(index+1), //Future.delayed(const Duration(seconds: 5)),
               builder: (_, snapshot) => 
               (snapshot.connectionState == ConnectionState.done) ? SizedBox.expand(
                 child: ContainerImage(
@@ -64,12 +64,12 @@ class HomePage extends Page<HomeBloc> {
                     alignment: Alignment.bottomLeft,
                     child: Text.rich(
                       TextSpan(children: [
-                        TextSpan(text: 'Belajar', style: textTheme.headline4.copyWith(
+                        TextSpan(text: snapshot.data.value.nama, style: textTheme.headline4.copyWith(
                           fontWeight: FontWeight.normal,
                           color: Colors.white
                         ),),
                         const TextSpan(text: '\n'),
-                        TextSpan(text: 'Ide Bisnis', style: textTheme.headline4.copyWith(
+                        TextSpan(text: snapshot.data.value.subNama, style: textTheme.headline4.copyWith(
                           color: Colors.white
                         ),)
                       ]),

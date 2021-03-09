@@ -3,16 +3,6 @@ part of 'page.dart';
 class PelatihanPage extends Page<PelatihanBloc> {
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
-  void init() {
-    // TODO: implement init
-  }
-
-  @override
   Widget build(BuildContext context) {
   
     int indexOfKategori1 = 0;
@@ -31,6 +21,7 @@ class PelatihanPage extends Page<PelatihanBloc> {
           const SizedBox(height: 24,),
           ContainerList(
             containerCount: 3,
+            future: Future.delayed(const Duration(seconds: 5)),
             bottomBuilder: (context, index) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

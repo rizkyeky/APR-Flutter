@@ -13,7 +13,6 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
         title: Text('Ide Bisnis', style: textTheme.headline6.copyWith(
           color: Colors.white
         )),
-        // brightness: Brightness.dark,
         elevation: 0,
       ),
       body: ListView(
@@ -21,6 +20,7 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
           const SizedBox(height: 24,),
           ContainerList(
             containerCount: 3,
+            future: Future.delayed(const Duration(seconds: 5)),
             insideBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
