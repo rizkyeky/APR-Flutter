@@ -17,4 +17,5 @@ class API implements Service {
   Uri get ide => Uri.http(_homeBase, '$_subBase/AprIde/read');
   Uri get ideAll => Uri.http(_homeBase, '$_subBase/AprIde/readAll');
   Uri get pelatihanAll => Uri.http(_homeBase, '$_subBase/AprPelatihan/readAll');
+  Uri get pelatihan => Uri.http(_homeBase, '$_subBase/AprPelatihan/read');
 }

@@ -9,7 +9,7 @@ class ContainerList<T> extends StatelessWidget {
   final double containerWidth;
   final double containerHeight;
   final double expandHeight;
-  final Future<T> future;
+  final Future<T> Function(int) future;
 
   const ContainerList({
     this.bottomBuilder,
@@ -26,7 +26,7 @@ class ContainerList<T> extends StatelessWidget {
     width: containerWidth,
     height: containerHeight,
     child: FutureBuilder<T>(
-      future: future,
+      future: future(index),
       builder: (context, snapshot) => 
       (snapshot.connectionState == ConnectionState.done) ? ContainerImage(
         child: (insideBuilder != null) ? insideBuilder(context, index) : null
@@ -49,7 +49,7 @@ class ContainerList<T> extends StatelessWidget {
       itemBuilder: (context, index) => (bottomBuilder != null) ? SizedBox(
         width: containerWidth,
         child: FutureBuilder<T>(
-          future: future,
+          future: future(index),
           builder: (context, snapshot) => 
           (snapshot.connectionState == ConnectionState.done) ? Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

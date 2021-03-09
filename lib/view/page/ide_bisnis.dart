@@ -18,9 +18,9 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
       body: ListView(
         children: [
           const SizedBox(height: 24,),
-          ContainerList(
+          ContainerList<ServiceResult<Ide>>(
             containerCount: 3,
-            future: Future.delayed(const Duration(seconds: 5)),
+            future: bloc.kategoriService.getIde,
             insideBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(12),
               child: Column(

@@ -19,9 +19,9 @@ class PelatihanPage extends Page<PelatihanBloc> {
       body: ListView(
         children: [
           const SizedBox(height: 24,),
-          ContainerList(
+          ContainerList<ServiceResult<Pelatihan>>(
             containerCount: 3,
-            future: Future.delayed(const Duration(seconds: 5)),
+            future: bloc.kategoriService.getPelatihan,
             bottomBuilder: (context, index) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

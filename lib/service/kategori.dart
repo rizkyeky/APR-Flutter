@@ -47,7 +47,7 @@ class KategoriService implements Service {
 
   Future<ServiceResult<Ide>> getIde(int index) async {
     try {      
-      debugPrint(_api.ide.toString());
+      // debugPrint(_api.ide.toString());
       
       final http.Response response = await _client.post(_api.ide, body: {
         'id_ide': index.toString()
@@ -57,20 +57,20 @@ class KategoriService implements Service {
       final data = json.decode(response.body) as Map;
       final results = data['results'] as List;
 
-      debugPrint(data.toString());
-      debugPrint(results.toString());
+      // debugPrint(data.toString());
+      // debugPrint(results.toString());
 
       if (response.statusCode != 200) {
         return ServiceResult(massage: 'not success', isSucess: false);
       } else {
         return ServiceResult(
-          value: Ide.fromJson(results[0] as Map)
+          value: Ide.fromJson(results[0] as Map),
+          isSucess: true
         );
       }
     } catch (e) {
       debugPrint(e.toString());
-      final error = e.toString().substring(0, e.toString().indexOf(':'));
-      return ServiceResult(massage: 'not success $error', isSucess: false);
+      return ServiceResult(massage: e.toString(), isSucess: false);
     }
   }
 
@@ -94,6 +94,32 @@ class KategoriService implements Service {
             (json) => Pelatihan.fromJson(json as Map)
           )
             .toList(),
+          isSucess: true,
+        );
+      }
+    } catch (e) {
+      final error = e.toString().substring(0, e.toString().indexOf(':'));
+      return ServiceResult(massage: 'not success $error', isSucess: false);
+    }
+  }
+
+  Future<ServiceResult<Pelatihan>> getPelatihan(int index) async {
+    try {
+      // debugPrint(_api.pelatihanAll.toString());
+
+      final http.Response response = await _client.post(_api.pelatihan, body: {
+        'id_ide': index.toString()
+      })
+        .timeout(const Duration(seconds: 10));
+
+      final data = json.decode(response.body) as Map;
+      final results = data['results'] as List;
+
+      if (response.statusCode != 200) {
+        return ServiceResult(massage: 'not success StatusCode', isSucess: false);
+      } else {
+        return ServiceResult(
+          value: Pelatihan.fromJson(results[0] as Map),
           isSucess: true,
         );
       }

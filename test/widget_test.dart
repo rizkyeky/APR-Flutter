@@ -26,7 +26,7 @@ void main() {
         debugPrint(result.value.length.toString());
 
       } else {
-        debugPrint(result.massage);
+        throw result.massage;
       }
 
     });
@@ -41,7 +41,7 @@ void main() {
         debugPrint(result.value.length.toString());
 
       } else {
-        debugPrint(result.massage);
+        throw result.massage;
       }
 
     });
@@ -55,14 +55,14 @@ void main() {
         debugPrint(result.value.toString());
 
       } else {
-        debugPrint(result.massage);
+        throw result.massage;
       }
     });
   });
 
-  group('Model', () {
-    final Pelatihan pelatihan = Pelatihan();
-    final Ide ide = Ide();
+  // group('Model', () {
+  //   final Pelatihan pelatihan = Pelatihan();
+  //   final Ide ide = Ide();
 
-  });
+  // });
 }

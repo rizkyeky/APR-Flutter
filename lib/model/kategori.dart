@@ -33,6 +33,9 @@ class Kategori implements Model {
     this.gamThumb,
     this.idUser
   });
+
+  @override
+    String toString() => '$nama, $subNama';
   
   // factory Kategori.fromJson(Map json) => Kategori(
   //   id: json['ID'] as String,

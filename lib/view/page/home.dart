@@ -57,7 +57,7 @@ class HomePage extends Page<HomeBloc> {
             child: FutureBuilder<ServiceResult<Ide>>(
               future: bloc.kategoriService.getIde(index+1), //Future.delayed(const Duration(seconds: 5)),
               builder: (_, snapshot) => 
-              (snapshot.connectionState == ConnectionState.done) ? SizedBox.expand(
+              (snapshot.hasData) ? (snapshot.data.isSucess) ? SizedBox.expand(
                 child: ContainerImage(
                   child: Container(
                     padding: const EdgeInsets.only(left: 24, bottom: 24),
@@ -78,7 +78,7 @@ class HomePage extends Page<HomeBloc> {
                     ) 
                   ),
                 ),
-              ) : Skeleton(
+              ) : Text(snapshot.data.massage) : Skeleton(
                 width: double.infinity,
                 borderRadius: const BorderRadius.all(Radius.circular(24)),
               )
@@ -116,8 +116,8 @@ class HomePage extends Page<HomeBloc> {
           ),),
           subtitle: Text('Wujudkan Ide Bisnis Anda', style: textTheme.bodyText1,),
         ),
-        ContainerList(
-          future: Future.delayed(const Duration(seconds: 5)),
+        ContainerList<ServiceResult<Ide>>(
+          future: bloc.kategoriService.getIde,
           containerCount: 3,
           insideBuilder: (_, index) => Padding(
             padding: const EdgeInsets.all(12),
@@ -208,9 +208,9 @@ class HomePage extends Page<HomeBloc> {
           ),),
           subtitle: Text('Tambahkan Kemampuan Anda', style: textTheme.bodyText1,),
         ),
-        ContainerList(
+        ContainerList<ServiceResult<Pelatihan>>(
           containerCount: 3,
-          future: Future.delayed(const Duration(seconds: 5)),
+          future: bloc.kategoriService.getPelatihan,
           bottomBuilder: (context, index) => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

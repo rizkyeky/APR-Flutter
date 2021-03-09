@@ -8,8 +8,8 @@ import 'package:skeleton_animation/skeleton_animation.dart';
 
 import '../../bloc/bloc.dart';
 import '../../injector.dart';
-import '../../service/service.dart';
 import '../../model/model.dart';
+import '../../service/service.dart';
 
 import '../../theme.dart';
 import '../component/component.dart';

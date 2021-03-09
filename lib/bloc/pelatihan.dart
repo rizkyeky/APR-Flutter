@@ -11,6 +11,8 @@ class PelatihanBloc implements Bloc {
     // TODO: implement init
   }
 
+  final KategoriService kategoriService = injector.getService<KategoriService>();
+
   List<String> listOfKategori = [
     'SEMUA',
     '< 10 JUTA',
