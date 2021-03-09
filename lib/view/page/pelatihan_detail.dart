@@ -144,7 +144,6 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
               const SizedBox(height: 24),
               ContainerList(
                 containerCount: 3,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
                 bottomBuilder: (context, index) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

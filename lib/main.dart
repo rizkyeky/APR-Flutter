@@ -22,6 +22,10 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
+    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+      statusBarIconBrightness: Brightness.light
+    ));
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'APR',

@@ -81,11 +81,11 @@ Future<void> showPengajuanSheet(BuildContext context) async {
                 ),
                 const SizedBox(width: 12),
                 Expanded(
-                  child: FlatButton(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12)
-                    ),
-                    color: colorScheme['primary'],
+                  child: TextButton(
+                    // shape: RoundedRectangleBorder(
+                    //   borderRadius: BorderRadius.circular(12)
+                    // ),
+                    // color: colorScheme['primary'],
                     onPressed: () {},
                     child: Text('Upload', style: textTheme.button.copyWith(
                       color: Colors.white

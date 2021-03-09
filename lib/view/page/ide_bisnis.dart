@@ -30,7 +30,6 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
           const SizedBox(height: 24,),
           ContainerList(
             containerCount: 3,
-            padding: const EdgeInsets.symmetric(horizontal: 24),
             insideBuilder: (context, index) => Padding(
               padding: const EdgeInsets.all(12),
               child: Column(

@@ -31,10 +31,12 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
                 ),
               ),
               const Spacer(),
-              FlatButton(
-                color: colorScheme['primary'],
+              TextButton(
+                style: TextButton.styleFrom(
+                backgroundColor: colorScheme['primary'],
+                // shape: const ContinuousRectangleBorder(),
+                ),
                 onPressed: () {},
-                shape: const ContinuousRectangleBorder(),
                 child: Text('WUJUDKAN', style: textTheme.bodyText1.copyWith(
                   color: Colors.white
                 ),)
@@ -135,7 +137,6 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
               const SizedBox(height: 24),
               ContainerList(
                 containerCount: 3,
-                padding: const EdgeInsets.symmetric(horizontal: 24),
                 insideBuilder: (context, index) => Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(

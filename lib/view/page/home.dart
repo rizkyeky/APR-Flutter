@@ -53,10 +53,10 @@ class HomePage extends Page<HomeBloc> {
       children: [
         const SizedBox(height: 24,),
         FutureBuilder<List<Ide>>(
-          future: Future.delayed(const Duration(seconds: 5)),
+          future: bloc.getIdeList(count: 3),
           builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
           ? CarouselSlider.builder(
-            itemCount: 4, 
+            itemCount: snapshot.data.length, 
             options: CarouselOptions(
               viewportFraction: 1,
               height: 300,
@@ -72,7 +72,7 @@ class HomePage extends Page<HomeBloc> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         const Spacer(),
-                        Text('Belajar', style: textTheme.headline4.copyWith(
+                        Text(snapshot.data[index].nama, style: textTheme.headline4.copyWith(
                           fontWeight: FontWeight.normal,
                           color: Colors.white
                         ),),
@@ -89,7 +89,7 @@ class HomePage extends Page<HomeBloc> {
             padding: const EdgeInsets.symmetric(horizontal: 24),
             child: Skeleton(
               height: 300,
-              borderRadius: BorderRadius.circular(24),
+              borderRadius: BorderRadius.circular(12),
             ),
           )
         ),
@@ -126,7 +126,7 @@ class HomePage extends Page<HomeBloc> {
         ),
         FutureBuilder<List>(
           future: Future.delayed(const Duration(seconds: 3)),
-          builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
+          builder: (context, snapshot) => (snapshot.connectionState != ConnectionState.done) 
           ? ContainerList(
             containerCount: 3,
             insideBuilder: (context, index) => Padding(
@@ -160,18 +160,16 @@ class HomePage extends Page<HomeBloc> {
           ) : Row(
             children: [
               const SizedBox(width: 24,),
-              Expanded(
-                child: Skeleton(
-                  height: 280,
-                  width: 190,
-                  borderRadius: BorderRadius.circular(24),
-                ),
+              Skeleton(
+                height: 280,
+                width: 220,
+                borderRadius: BorderRadius.circular(12),
               ),
               const SizedBox(width: 24,),
               Expanded(
                 child: Skeleton(
                   height: 280,
-                  borderRadius: const BorderRadius.horizontal(left: Radius.circular(24)),
+                  borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
                 ),
               ),
             ],
@@ -187,26 +185,48 @@ class HomePage extends Page<HomeBloc> {
               padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
               child: Row(
               children: [
-                Skeleton(
-                  height: 150,
-                  width: 150,
-                  borderRadius: BorderRadius.circular(24),
+                Column(
+                  children: [
+                    Skeleton(
+                      height: 150,
+                      width: 150,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    const SizedBox(height: 6),
+                    Skeleton(
+                      width: 150,
+                      height: 48,
+                      borderRadius: BorderRadius.circular(6),
+                      style: SkeletonStyle.text,
+                    ),
+                  ],
                 ),
                 const Spacer(),
-                Skeleton(
-                  height: 150,
-                  width: 150,
-                  borderRadius: BorderRadius.circular(24),
+                Column(
+                  children: [
+                    Skeleton(
+                      height: 150,
+                      width: 150,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    const SizedBox(height: 6),
+                    Skeleton(
+                      width: 150,
+                      height: 48,
+                      borderRadius: BorderRadius.circular(6),
+                      style: SkeletonStyle.text,
+                    ),
+                  ],
                 ),
               ],
-          ),
-            )
+            ),
+          )
         )),
         Padding(
           padding: const EdgeInsets.all(24),
           child: MainButton(
             label: 'LIHAT SEMUA',
-            color: colorScheme['accent2'],
+            onPressed: () {},
           ),
         ),
         ListTile(
@@ -218,7 +238,7 @@ class HomePage extends Page<HomeBloc> {
         ),
         FutureBuilder<Object>(
           future: Future.delayed(const Duration(seconds: 3)),
-          builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
+          builder: (context, snapshot) => (snapshot.connectionState != ConnectionState.done) 
           ? ContainerList(
             containerCount: 3,
             bottomBuilder: (context, index) => Column(
@@ -245,17 +265,44 @@ class HomePage extends Page<HomeBloc> {
           ) : Row(
             children: [
               const SizedBox(width: 24,),
-              Expanded(
-                child: Skeleton(
-                  height: 300,
-                  borderRadius: BorderRadius.circular(24),
+              SizedBox(
+                width: 220,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Skeleton(
+                      height: 300,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    const SizedBox(height: 6),
+                    Skeleton(
+                      height: 48,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.circular(6),
+                      style: SkeletonStyle.text,
+                    ),
+                  ],
                 ),
               ),
               const SizedBox(width: 24,),
               Expanded(
-                child: Skeleton(
-                  height: 300,
-                  borderRadius: const BorderRadius.horizontal(left: Radius.circular(24)),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Skeleton(
+                      height: 300,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    const SizedBox(height: 6),
+                    Skeleton(
+                      height: 48,
+                      width: double.infinity,
+                      borderRadius: BorderRadius.circular(6),
+                      style: SkeletonStyle.text,
+                    ),
+                  ],
                 ),
               ),
             ],
@@ -268,15 +315,24 @@ class HomePage extends Page<HomeBloc> {
             color: colorScheme['primary']
           )),
         ),
-        ...List.generate(3, (index) => ContainerTile(
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-          openWidget: PelatihanDetailPage(),
+        ...List.generate(3, (index) => FutureBuilder(
+          future: Future.delayed(const Duration(seconds: 3)),
+          builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
+          ? ContainerTile(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            openWidget: PelatihanDetailPage(),
+          ) : Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Skeleton(
+              height: 150,
+              borderRadius: BorderRadius.circular(12),
+            ),
+          )
         )),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           child: MainButton(
             label: 'LIHAT SEMUA',
-            color: colorScheme['accent2'],
             onPressed: () {},
           ),
         ),
