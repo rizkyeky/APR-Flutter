@@ -77,10 +77,7 @@ class TabPage extends StatelessWidget {
         ],
         onTap: (index) {
           setTab.value = index;
-          _pageController.animateToPage(index, 
-            duration: const Duration(milliseconds: 400),
-            curve: Curves.easeOut
-          );
+          _pageController.jumpToPage(index);
         },
       ),
     ),

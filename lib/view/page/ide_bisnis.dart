@@ -3,16 +3,6 @@ part of 'page.dart';
 class IdeBisnisPage extends Page<IdeBisnisBloc> {
 
   @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
-  void init() {
-    // TODO: implement init
-  }
-
-  @override
   Widget build(BuildContext context) {
     
     int indexOfKategori = 0;
@@ -23,6 +13,7 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
         title: Text('Ide Bisnis', style: textTheme.headline6.copyWith(
           color: Colors.white
         )),
+        // brightness: Brightness.dark,
         elevation: 0,
       ),
       body: ListView(

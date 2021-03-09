@@ -38,7 +38,8 @@ class MyApp extends StatelessWidget {
         canvasColor: colorScheme['background2'],
         buttonColor: colorScheme['primary'],
         hintColor: colorScheme['text2'],
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        brightness: Brightness.dark,
+        visualDensity: VisualDensity.standard,
       ),
       home: EntryPage(),
     );
