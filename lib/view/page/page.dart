@@ -39,11 +39,14 @@ abstract class Page<T extends Bloc> extends StatefulWidget {
   @protected
   Widget build(BuildContext context);
 
-  @protected
-  void init();
+  void init() {
+    bloc.init();
 
-  @protected
-  void dispose();
+  }
+
+  void dispose() {
+    bloc.dispose();
+  }
 }
 
 class _PageState extends State<Page> {
@@ -55,14 +58,12 @@ class _PageState extends State<Page> {
   @override
   void initState() {
     widget.init();
-    widget.bloc.init();
     super.initState();
   }
 
   @override
   void dispose() {
     widget.dispose();
-    widget.bloc.dispose();
     super.dispose();
   }
 

@@ -4,24 +4,16 @@ class HomePage extends Page<HomeBloc> {
 
   HomePage() : super(hasNetworkSnack: true);
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
-  void init() {
-    // TODO: implement init
-  }
-
   final Size heightAppBar = const Size.fromHeight(84);
 
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: PreferredSize(
       preferredSize: heightAppBar,
-      child: Material(
-        color: colorScheme['primary'],
+      child: DecoratedBox(
+        decoration: BoxDecoration(
+          color: colorScheme['primary'],
+        ),
         child: SizedBox.fromSize(
           size: heightAppBar,
           child: SafeArea(
@@ -31,16 +23,18 @@ class HomePage extends Page<HomeBloc> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset('assets/logo/logo.png', height: 36, width: 47),
-                  Row(
-                    children: [
-                      Text('Hello, ', style: textTheme.headline6.copyWith(
+                  Text.rich(
+                    TextSpan(
+                      children: [
+                      TextSpan(text: 'Hello, ', style: textTheme.headline6.copyWith(
                         fontWeight: FontWeight.normal,
                         color: Colors.white
                       ),),
-                      Text('Username', style: textTheme.headline6.copyWith(
+                      TextSpan(text: 'Username', style: textTheme.headline6.copyWith(
                         color: Colors.white
                       ),),
-                    ],
+                      ]
+                    )
                   ),
                 ],
               ),
@@ -52,44 +46,42 @@ class HomePage extends Page<HomeBloc> {
     body: ListView(
       children: [
         const SizedBox(height: 24,),
-        FutureBuilder<List<Ide>>(
-          future: bloc.getIdeList(count: 3),
-          builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
-          ? CarouselSlider.builder(
-            itemCount: snapshot.data.length, 
-            options: CarouselOptions(
-              viewportFraction: 1,
-              height: 300,
-            ),
-            itemBuilder: (ctx, index) => Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: SizedBox.expand(
+        CarouselSlider.builder(
+          itemCount: 3, 
+          options: CarouselOptions(
+            viewportFraction: 1,
+            height: 300,
+          ),
+          itemBuilder: (_, index) => Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            child: FutureBuilder(
+              future: Future.delayed(const Duration(seconds: 5)),
+              builder: (_, snapshot) => 
+              (snapshot.connectionState == ConnectionState.done) ? SizedBox.expand(
                 child: ContainerImage(
-                  child: Padding(
+                  child: Container(
                     padding: const EdgeInsets.only(left: 24, bottom: 24),
-                    child:  Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Spacer(),
-                        Text(snapshot.data[index].nama, style: textTheme.headline4.copyWith(
+                    alignment: Alignment.bottomLeft,
+                    child: Text.rich(
+                      TextSpan(children: [
+                        TextSpan(text: 'Belajar', style: textTheme.headline4.copyWith(
                           fontWeight: FontWeight.normal,
                           color: Colors.white
                         ),),
-                        Text('Ide Bisnis', style: textTheme.headline4.copyWith(
+                        const TextSpan(text: '\n'),
+                        TextSpan(text: 'Ide Bisnis', style: textTheme.headline4.copyWith(
                           color: Colors.white
-                        )),
-                      ],
-                    ),
+                        ),)
+                      ]),
+                      textWidthBasis: TextWidthBasis.parent,
+                      maxLines: 2,
+                    ) 
                   ),
                 ),
-              ),
-            )
-          ) : Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24),
-            child: Skeleton(
-              height: 300,
-              borderRadius: BorderRadius.circular(12),
+              ) : Skeleton(
+                width: double.infinity,
+                borderRadius: const BorderRadius.all(Radius.circular(24)),
+              )
             ),
           )
         ),
@@ -124,56 +116,36 @@ class HomePage extends Page<HomeBloc> {
           ),),
           subtitle: Text('Wujudkan Ide Bisnis Anda', style: textTheme.bodyText1,),
         ),
-        FutureBuilder<List>(
-          future: Future.delayed(const Duration(seconds: 3)),
-          builder: (context, snapshot) => (snapshot.connectionState != ConnectionState.done) 
-          ? ContainerList(
-            containerCount: 3,
-            insideBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.all(12),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.baseline,
-                    children:  [
-                      const Spacer(),
-                      SimpleChip(
-                        color: Colors.white,
-                        child: Text(bloc.listOfContainer1[index]['chip'], style: textTheme.subtitle2)
-                      )
-                    ],
-                  ),
-                  const Spacer(),
-                  Text(bloc.listOfContainer1[index]['overline'], style: textTheme.headline5.copyWith(
-                    color: Colors.white
-                  )),
-                  Text(bloc.listOfContainer1[index]['title'], style: textTheme.headline6.copyWith(
-                    color: Colors.white,
-                    fontWeight: FontWeight.normal,
-                  )),
-                ],
-              ),
-            ),
-          ) : Row(
-            children: [
-              const SizedBox(width: 24,),
-              Skeleton(
-                height: 280,
-                width: 220,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              const SizedBox(width: 24,),
-              Expanded(
-                child: Skeleton(
-                  height: 280,
-                  borderRadius: const BorderRadius.horizontal(left: Radius.circular(12)),
+        ContainerList(
+          future: Future.delayed(const Duration(seconds: 5)),
+          containerCount: 3,
+          insideBuilder: (_, index) => Padding(
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children:  [
+                    const Spacer(),
+                    SimpleChip(
+                      color: Colors.white,
+                      child: Text(bloc.listOfContainer1[index]['chip'], style: textTheme.subtitle2)
+                    )
+                  ],
                 ),
-              ),
-            ],
-          )
+                const Spacer(),
+                Text(bloc.listOfContainer1[index]['overline'], style: textTheme.headline5.copyWith(
+                  color: Colors.white
+                )),
+                Text(bloc.listOfContainer1[index]['title'], style: textTheme.headline6.copyWith(
+                  color: Colors.white,
+                  fontWeight: FontWeight.normal,
+                )),
+              ],
+            ),
+          ),
         ),
         ...List.generate(2, (index) => FutureBuilder<List>(
           future: Future.delayed(const Duration(seconds: 3)),
@@ -236,78 +208,76 @@ class HomePage extends Page<HomeBloc> {
           ),),
           subtitle: Text('Tambahkan Kemampuan Anda', style: textTheme.bodyText1,),
         ),
-        FutureBuilder<Object>(
-          future: Future.delayed(const Duration(seconds: 3)),
-          builder: (context, snapshot) => (snapshot.connectionState != ConnectionState.done) 
-          ? ContainerList(
-            containerCount: 3,
-            bottomBuilder: (context, index) => Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(bloc.listOfContainer2[index]['title'], style: textTheme.subtitle1.copyWith(
-                  height: 1.2,
-                  color: colorScheme['primary'],
-                  fontWeight: FontWeight.bold,
-                )),
-                Text(bloc.listOfContainer2[index]['subtitle'], style: textTheme.bodyText2)
-              ],
-            ),
-            insideBuilder: (context, index) => Padding(
-              padding: const EdgeInsets.only(right: 12, top: 12),
-              child: Align(
-                alignment: Alignment.topRight,
-                child: SimpleChip(
-                  color: Colors.white,
-                  child: Text(bloc.listOfContainer2[index]['chip'], style: textTheme.subtitle2)
-                ),
-              ),
-            ),
-          ) : Row(
+        ContainerList(
+          containerCount: 3,
+          future: Future.delayed(const Duration(seconds: 5)),
+          bottomBuilder: (context, index) => Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(width: 24,),
-              SizedBox(
-                width: 220,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Skeleton(
-                      height: 300,
-                      width: double.infinity,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    const SizedBox(height: 6),
-                    Skeleton(
-                      height: 48,
-                      width: double.infinity,
-                      borderRadius: BorderRadius.circular(6),
-                      style: SkeletonStyle.text,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 24,),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Skeleton(
-                      height: 300,
-                      width: double.infinity,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    const SizedBox(height: 6),
-                    Skeleton(
-                      height: 48,
-                      width: double.infinity,
-                      borderRadius: BorderRadius.circular(6),
-                      style: SkeletonStyle.text,
-                    ),
-                  ],
-                ),
-              ),
+              Text(bloc.listOfContainer2[index]['title'], style: textTheme.subtitle1.copyWith(
+                height: 1.2,
+                color: colorScheme['primary'],
+                fontWeight: FontWeight.bold,
+              )),
+              Text(bloc.listOfContainer2[index]['subtitle'], style: textTheme.bodyText2)
             ],
-          )
-        ),
+          ),
+          insideBuilder: (context, index) => Padding(
+            padding: const EdgeInsets.only(right: 12, top: 12),
+            child: Align(
+              alignment: Alignment.topRight,
+              child: SimpleChip(
+                color: Colors.white,
+                child: Text(bloc.listOfContainer2[index]['chip'], style: textTheme.subtitle2)
+              ),
+            ),
+          ),
+        ), 
+          // Row(
+          //   children: [
+          //     const SizedBox(width: 24,),
+          //     SizedBox(
+          //       width: 220,
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Skeleton(
+          //             height: 300,
+          //             width: double.infinity,
+          //             borderRadius: BorderRadius.circular(12),
+          //           ),
+          //           const SizedBox(height: 6),
+          //           Skeleton(
+          //             height: 48,
+          //             width: double.infinity,
+          //             borderRadius: BorderRadius.circular(6),
+          //             style: SkeletonStyle.text,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //     const SizedBox(width: 24,),
+          //     Expanded(
+          //       child: Column(
+          //         crossAxisAlignment: CrossAxisAlignment.start,
+          //         children: [
+          //           Skeleton(
+          //             height: 300,
+          //             width: double.infinity,
+          //             borderRadius: BorderRadius.circular(12),
+          //           ),
+          //           const SizedBox(height: 6),
+          //           Skeleton(
+          //             height: 48,
+          //             width: double.infinity,
+          //             borderRadius: BorderRadius.circular(6),
+          //             style: SkeletonStyle.text,
+          //           ),
+          //         ],
+          //       ),
+          //     ),
+          //   ],
+          // )
         const SizedBox(height: 24),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 24),

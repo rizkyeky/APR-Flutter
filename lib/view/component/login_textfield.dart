@@ -32,10 +32,11 @@ class LoginTextField extends StatelessWidget {
         fillColor: Colors.white,
         filled: true,
         isDense: true,
-        contentPadding: const EdgeInsets.fromLTRB(12, 12, 12, 24),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(12),
-          borderSide: BorderSide.none
+        contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+        border: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(12)),
+          borderSide: BorderSide.none,
+          gapPadding: 0
         ),
       ),
     );
