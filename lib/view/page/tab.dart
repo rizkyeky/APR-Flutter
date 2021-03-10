@@ -10,7 +10,7 @@ class TabPage extends StatelessWidget {
   final List<Widget> pages = [];
   final ValueNotifier<int> setTab = ValueNotifier(0);
 
-  final PageController _pageController = PageController();
+  // final PageController _pageController = PageController();
 
   TabPage({
     Key key,
@@ -26,7 +26,7 @@ class TabPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
     body: PageView(
-      controller: _pageController,
+      controller: injector.tabController,
       onPageChanged: (index) {
         setTab.value = index;
       },
@@ -77,7 +77,7 @@ class TabPage extends StatelessWidget {
         ],
         onTap: (index) {
           setTab.value = index;
-          _pageController.jumpToPage(index);
+          injector.tabController.jumpToPage(index);
         },
       ),
     ),

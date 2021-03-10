@@ -65,3 +65,20 @@ class ContainerTile extends StatelessWidget {
     );
   }
 }
+
+class SkeletonContainerTile extends StatelessWidget {
+  const SkeletonContainerTile({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+      child: Skeleton(
+        height: 150,
+        borderRadius: BorderRadius.circular(12),
+      ),
+    );
+  }
+}

@@ -3,6 +3,7 @@ import 'dart:typed_data';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:get_it/get_it.dart';
 
@@ -56,6 +57,8 @@ class Injector {
   void rebuild() {
     rebuildNotifier.value = !rebuildNotifier.value;
   }
+
+  final PageController tabController = PageController();
 }
 
 final Injector injector = Injector.instance;

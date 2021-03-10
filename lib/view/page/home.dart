@@ -170,13 +170,13 @@ class HomePage extends Page<HomeBloc> {
                   data: snapshot.data,
                   padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                   openWidget: IdeBisnisDetailPage()
-                ) : SkeletonContainerRow()
+                ) : const SkeletonContainerRow()
             )),
             Padding(
               padding: const EdgeInsets.all(24),
               child: MainButton(
                 label: 'LIHAT SEMUA',
-                onPressed: () {},
+                onPressed: () => injector.tabController.jumpToPage(1),
               ),
             ),
             ListTile(
@@ -218,25 +218,19 @@ class HomePage extends Page<HomeBloc> {
                 color: colorScheme['primary']
               )),
             ),
-            ...List.generate(3, (index) => FutureBuilder(
-              future: Future.delayed(const Duration(seconds: 3)),
-              builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
+            ...List.generate(3, (index) => FutureBuilder<ServiceResult>(
+              future: bloc.kategoriService.getIde(index+1),
+              builder: (context, snapshot) => (snapshot.hasData) ? (snapshot.data.isSucess)
               ? ContainerTile(
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 openWidget: PelatihanDetailPage(),
-              ) : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                child: Skeleton(
-                  height: 150,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-              )
+              ) : Center(child: Text(snapshot.data.massage)) : const SkeletonContainerTile()
             )),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
               child: MainButton(
                 label: 'LIHAT SEMUA',
-                onPressed: () {},
+                onPressed: () => injector.tabController.jumpToPage(2),
               ),
             ),
           ],

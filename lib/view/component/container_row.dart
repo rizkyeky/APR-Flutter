@@ -78,6 +78,11 @@ class ContainerRow extends StatelessWidget {
 }
 
 class SkeletonContainerRow extends StatelessWidget {
+
+  const SkeletonContainerRow({
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Padding(
