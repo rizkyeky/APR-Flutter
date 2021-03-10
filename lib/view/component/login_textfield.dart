@@ -27,6 +27,7 @@ class LoginTextField extends StatelessWidget {
         fontWeight: FontWeight.normal,
       ),
       keyboardType: keyboardType,
+      textAlignVertical: TextAlignVertical.center,
       decoration: InputDecoration(
         hintText: hitText,
         fillColor: Colors.white,

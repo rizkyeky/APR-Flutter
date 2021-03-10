@@ -76,3 +76,49 @@ class ContainerRow extends StatelessWidget {
     );
   }
 }
+
+class SkeletonContainerRow extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+      child: Row(
+      children: [
+        Column(
+          children: [
+            Skeleton(
+              height: 150,
+              width: 150,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            const SizedBox(height: 6),
+            Skeleton(
+              width: 150,
+              height: 48,
+              borderRadius: BorderRadius.circular(6),
+              style: SkeletonStyle.text,
+            ),
+          ],
+        ),
+        const Spacer(),
+        Column(
+          children: [
+            Skeleton(
+              height: 150,
+              width: 150,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            const SizedBox(height: 6),
+            Skeleton(
+              width: 150,
+              height: 48,
+              borderRadius: BorderRadius.circular(6),
+              style: SkeletonStyle.text,
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
+  }
+}

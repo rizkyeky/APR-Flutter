@@ -13,45 +13,28 @@ Future<void> main() async {
   await injector.init();
   await injector.setup();
   runApp(
-    DevicePreview(
-      enabled: !kReleaseMode,
-      builder: (context) => MyApp(),
-    ),
+    MyApp()
   );
 }
 
 class MyApp extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown,
-    ]);
-
-    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    //   statusBarIconBrightness: Brightness.light
-    // ));
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'APR',
-      locale: DevicePreview.locale(context),
-      builder: DevicePreview.appBuilder,
-      theme: ThemeData(
-        fontFamily: 'Poppins',
-        textTheme: textTheme,
-        primaryColor: colorScheme['primary'],
-        accentColor: colorScheme['accent1'],
-        scaffoldBackgroundColor: colorScheme['background1'],
-        canvasColor: colorScheme['background2'],
-        buttonColor: colorScheme['primary'],
-        hintColor: colorScheme['text2'],
-        brightness: Brightness.dark,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: EntryPage(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+    debugShowCheckedModeBanner: false,
+    title: 'APR',
+    theme: ThemeData(
+      fontFamily: 'Poppins',
+      textTheme: textTheme,
+      primaryColor: colorScheme['primary'],
+      accentColor: colorScheme['accent1'],
+      scaffoldBackgroundColor: colorScheme['background1'],
+      canvasColor: colorScheme['background2'],
+      buttonColor: colorScheme['primary'],
+      hintColor: colorScheme['text2'],
+      brightness: Brightness.dark,
+      visualDensity: VisualDensity.comfortable,
+    ),
+    home: EntryPage(),
+  );
 }
 

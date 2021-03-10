@@ -13,6 +13,14 @@ class IdeBisnisBloc implements Bloc {
 
   final KategoriService kategoriService = injector.getService<KategoriService>();
 
+  Future<List<ServiceResult<Ide>>> get2Ide() async {
+    final list = <ServiceResult<Ide>>[];
+    for (var i = 0; i < 2; i++) {
+      list.add(await kategoriService.getIde(i+1));
+    }
+    return list;
+  }
+
   List<String> listOfKategori = [
     'SEMUA',
     '< 10 JUTA',
