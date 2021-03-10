@@ -53,7 +53,8 @@ void main() {
       if (result.isSucess) {
 
         debugPrint(result.value.toString());
-
+        debugPrint(result.value.gambar);
+        debugPrint(result.value.gamThumb);
       } else {
         throw result.massage;
       }
@@ -66,6 +67,8 @@ void main() {
       if (result.isSucess) {
 
         debugPrint(result.value.toString());
+        debugPrint(result.value.gambar);
+        debugPrint(result.value.gamThumb);
 
       } else {
         throw result.massage;

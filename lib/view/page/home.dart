@@ -4,7 +4,7 @@ class HomePage extends Page<HomeBloc> {
 
   HomePage() : super(hasNetworkSnack: true);
 
-  final Size heightAppBar = const Size.fromHeight(84);
+  final Size heightAppBar = Size.fromHeight(injector.screenHeight / 9);
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -14,30 +14,30 @@ class HomePage extends Page<HomeBloc> {
         decoration: BoxDecoration(
           color: colorScheme['primary'],
         ),
-        child: SizedBox.fromSize(
-          size: heightAppBar,
-          child: SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 24),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Image.asset('assets/logo/logo.png', height: 36, width: 47),
-                  Text.rich(
-                    TextSpan(
-                      children: [
-                      TextSpan(text: 'Hello, ', style: textTheme.headline6.copyWith(
-                        fontWeight: FontWeight.normal,
-                        color: Colors.white
-                      ),),
-                      TextSpan(text: 'Username', style: textTheme.headline6.copyWith(
-                        color: Colors.white
-                      ),),
-                      ]
-                    )
-                  ),
-                ],
-              ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Image.asset('assets/logo/logo.png', 
+                  height: injector.screenHeight / 24.8 < 36 ? 
+                    36 : injector.screenHeight / 24.8,
+                ),
+                Text.rich(
+                  TextSpan(
+                    children: [
+                    TextSpan(text: 'Hello, ', style: textTheme.headline6.copyWith(
+                      fontWeight: FontWeight.normal,
+                      color: Colors.white
+                    ),),
+                    TextSpan(text: 'Username', style: textTheme.headline6.copyWith(
+                      color: Colors.white
+                    ),),
+                    ]
+                  )
+                ),
+              ],
             ),
           ),
         ),
@@ -46,7 +46,7 @@ class HomePage extends Page<HomeBloc> {
     body: RefreshIndicator(
       onRefresh: () async {
         Future.delayed(const Duration(seconds: 1))
-          .whenComplete(() => injector.rebuild.value = !injector.rebuild.value);
+          .whenComplete(() => injector.rebuild());
       },
       child: ListView(
         children: [
@@ -62,30 +62,39 @@ class HomePage extends Page<HomeBloc> {
               child: FutureBuilder<ServiceResult<Ide>>(
                 future: bloc.kategoriService.getIde(index+1),
                 builder: (_, snapshot) => 
-                (snapshot.hasData) ? (snapshot.data.isSucess) ? SizedBox.expand(
-                  child: ContainerImage(
-                    child: Container(
-                      padding: const EdgeInsets.only(left: 24, bottom: 24),
-                      alignment: Alignment.bottomLeft,
-                      child: Text.rich(
-                        TextSpan(children: [
-                          TextSpan(text: snapshot.data.value.nama, style: textTheme.headline4.copyWith(
-                            fontWeight: FontWeight.normal,
-                            color: Colors.white
-                          ),),
-                          const TextSpan(text: '\n'),
-                          TextSpan(text: snapshot.data.value.subNama, style: textTheme.headline4.copyWith(
-                            color: Colors.white
-                          ),)
-                        ]),
-                        textWidthBasis: TextWidthBasis.parent,
-                        maxLines: 2,
-                      ) 
+                (snapshot.hasData) ? (snapshot.data.isSucess) ? OpenContainer(
+                  openBuilder: (context, action) => IdeBisnisDetailPage(),
+                  closedColor: Colors.transparent,
+                  closedShape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)
+                  ),
+                  closedBuilder: (context, action) => Container(
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        fit: BoxFit.cover,
+                        image: MemoryImage(injector.imagePlaceHolder),
+                      )
                     ),
+                    padding: const EdgeInsets.only(left: 24, bottom: 24),
+                    alignment: Alignment.bottomLeft,
+                    child: Text.rich(
+                      TextSpan(children: [
+                        TextSpan(text: snapshot.data.value.nama, style: textTheme.headline4.copyWith(
+                          fontWeight: FontWeight.normal,
+                          color: Colors.white
+                        ),),
+                        const TextSpan(text: '\n'),
+                        TextSpan(text: snapshot.data.value.subNama, style: textTheme.headline4.copyWith(
+                          color: Colors.white
+                        ),)
+                      ]),
+                      textWidthBasis: TextWidthBasis.parent,
+                      maxLines: 2,
+                    ) 
                   ),
                 ) : Text(snapshot.data.massage) : Skeleton(
                   width: double.infinity,
-                  borderRadius: const BorderRadius.all(Radius.circular(24)),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
                 )
               ),
             )
@@ -152,10 +161,11 @@ class HomePage extends Page<HomeBloc> {
               ),
             ),
           ),
-          ...List.generate(2, (index) => FutureBuilder<List>(
-            future: Future.delayed(const Duration(seconds: 3)),
+          ...List.generate(2, (index) => FutureBuilder<List<ServiceResult<Ide>>>(
+            future: bloc.get2Ide(),
             builder: (context, snapshot) => (snapshot.connectionState == ConnectionState.done) 
               ? ContainerRow(
+                data: snapshot.data,
                 padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                 openWidget: IdeBisnisDetailPage()
               ) : Padding(

@@ -31,6 +31,9 @@ class Injector {
   }
 
   Future<void> setup() async {
+    rebuildNotifier = ValueNotifier(false);
+    networkStatusNotifier = ValueNotifier(ConnectionStatus.offline);
+
     await getService<ConnectionService>().init();
     await cacheImagePlaceHolder('assets/background/content.jpg');
   }
@@ -47,7 +50,12 @@ class Injector {
     imagePlaceHolder = bytes.buffer.asUint8List();
   }
 
-  ValueNotifier<bool> rebuild = ValueNotifier(false);
+  ValueNotifier<bool> rebuildNotifier;
+  ValueNotifier<ConnectionStatus> networkStatusNotifier;
+
+  void rebuild() {
+    rebuildNotifier.value = !rebuildNotifier.value;
+  }
 }
 
 final Injector injector = Injector.instance;

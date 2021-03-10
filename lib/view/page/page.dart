@@ -1,5 +1,7 @@
 library page;
 
+import 'package:animations/animations.dart';
+import 'package:flash/flash.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -54,8 +56,6 @@ class _PageState extends State<Page> {
   bool hasOffline = false;
   bool hasOnline = false;
 
-  Image placeHolder;
-
   @override
   void initState() {
     widget.init();
@@ -75,44 +75,51 @@ class _PageState extends State<Page> {
     injector.screenWidth = MediaQuery.of(context).size.width;
 
     return ValueListenableBuilder<ConnectionStatus>(
-      valueListenable: injector.getService<ConnectionService>().networkStatusNotifier,
+      valueListenable: injector.networkStatusNotifier,
       builder: (context, value, child) {
-        if (widget.hasNetworkSnack) {
-          if (value == ConnectionStatus.offline && !hasOnline) {
-            Future.delayed(const Duration(milliseconds: 500))
-              .whenComplete(() => showFlash(
-                context: context,
-                // duration: const Duration(seconds: 3),
-                builder: (context, controller) => SnackFlashBar(
-                  controller: controller,
-                  contentMessage: 'OFFLINE',
-                  actionMessage: 'DISMISS',
-                )
-              ));
-            hasOffline = true;
-          } else if (hasOffline) {
-            Future.delayed(const Duration(milliseconds: 500))
-              .whenComplete(() => showFlash(
-                context: context,
-                duration: const Duration(seconds: 1),
-                builder: (context, controller) => SnackFlashBar(
-                  controller: controller,
-                  contentMessage: 'ONLINE',
-                  actionMessage: 'DISMISS',
-                )
-              ));
-            hasOnline = true;
-          }
-        }
+        checkConnection(value);
         return child;
       },
       child: ValueListenableBuilder<bool>(
-        valueListenable: injector.rebuild,
+        valueListenable: injector.rebuildNotifier,
         builder: (context, value, _) {
           return widget.build(context);
         }
       ),
     );
-    // return widget.build(context);
+  }
+
+  void checkConnection(ConnectionStatus status) {
+    if (widget.hasNetworkSnack) {
+      if (status == ConnectionStatus.offline && !hasOffline) {
+        Future.delayed(const Duration(milliseconds: 500))
+          .whenComplete(() => showFlash(
+            context: context,
+            duration: const Duration(seconds: 3),
+            builder: (context, controller) {
+              return SnackFlashBar(
+                controller: controller,
+                contentMessage: 'OFFLINE',
+                actionMessage: 'DISMISS',
+              );
+            }
+          ));
+        hasOffline = true;
+        hasOnline = false;
+      } else if (status == ConnectionStatus.online && !hasOnline && hasOffline) {
+        Future.delayed(const Duration(milliseconds: 500))
+          .whenComplete(() => showFlash(
+            context: context,
+            duration: const Duration(seconds: 1),
+            builder: (context, controller) => SnackFlashBar(
+              controller: controller,
+              contentMessage: 'ONLINE',
+              actionMessage: 'DISMISS',
+            )
+          ));
+        hasOffline = false;
+        hasOnline = true;
+      }
+    }
   }
 }

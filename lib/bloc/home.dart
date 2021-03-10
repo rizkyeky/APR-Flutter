@@ -13,34 +13,13 @@ class HomeBloc implements Bloc {
 
   final KategoriService kategoriService = injector.getService<KategoriService>();
 
-  // List<Ide> _listIdeBisnis = [];
-  // List<Pelatihan> _listPelatihan = [];
-
-  // Future<List<Ide>> getIdeList({int index, int count}) async {
-  //   if (_listIdeBisnis.isEmpty) {
-  //     final result = await _kategoriService.getIdeAll();
-  //     if (result.isSucess) {
-  //       if (count != null) {
-  //         _listIdeBisnis = result.value.sublist(0, count);
-  //       }
-  //     }
-  //   }
-  //   return _listIdeBisnis;
-  // }
-
-  // Future<List<Pelatihan>> getPelatihanList({int index, int count}) async {
-  //   if (_listIdeBisnis.isEmpty) {
-  //     final result = await _kategoriService.getPelatihanAll();
-  //     if (result.isSucess) {
-  //       if (count != null) {
-  //         _listPelatihan = result.value.sublist(0, count);
-  //       } else {
-  //         _listPelatihan = result.value;
-  //       }
-  //     }
-  //   }
-  //   return _listPelatihan;
-  // } 
+  Future<List<ServiceResult<Ide>>> get2Ide() async {
+    final list = <ServiceResult<Ide>>[];
+    for (var i = 0; i < 2; i++) {
+      list.add(await kategoriService.getIde(i+1));
+    }
+    return list;
+  }
 
   List<Map<String, String>> listOfContainer1 = [
     {

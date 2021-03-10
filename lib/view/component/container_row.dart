@@ -4,9 +4,11 @@ class ContainerRow extends StatelessWidget {
 
   final EdgeInsetsGeometry padding;
   final Widget openWidget;
+  final List<ServiceResult<Ide>> data;
 
   const ContainerRow({
-    this.openWidget,
+    @required this.data,
+    @required this.openWidget,
     this.padding = const EdgeInsets.symmetric(vertical: 12),
   });
 
@@ -18,10 +20,11 @@ class ContainerRow extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: List.generate(2, (index) => 
           SizedBox(
-            height: 210,
+            height: 196,
             width: 150,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               textBaseline: TextBaseline.alphabetic,
               children: [
                 OpenContainer(
@@ -55,7 +58,7 @@ class ContainerRow extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('Ide Usaha Furnitur', style: textTheme.subtitle1.copyWith(
+                    Text(data[index].value.nama, style: textTheme.subtitle1.copyWith(
                       color: colorScheme['primary'],
                       fontWeight: FontWeight.bold,
                       height: 1

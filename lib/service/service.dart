@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:connectivity/connectivity.dart';
 import 'package:http/http.dart' as http;
 
+import '../injector.dart';
 import '../model/model.dart';
 
 part 'connection.dart';

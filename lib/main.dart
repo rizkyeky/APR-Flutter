@@ -1,3 +1,5 @@
+import 'package:device_preview/device_preview.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -10,7 +12,12 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await injector.init();
   await injector.setup();
-  runApp(MyApp());
+  runApp(
+    DevicePreview(
+      enabled: !kReleaseMode,
+      builder: (context) => MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -22,13 +29,15 @@ class MyApp extends StatelessWidget {
       DeviceOrientation.portraitDown,
     ]);
 
-    SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-      statusBarIconBrightness: Brightness.light
-    ));
+    // SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    //   statusBarIconBrightness: Brightness.light
+    // ));
 
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'APR',
+      locale: DevicePreview.locale(context),
+      builder: DevicePreview.appBuilder,
       theme: ThemeData(
         fontFamily: 'Poppins',
         textTheme: textTheme,
@@ -39,7 +48,7 @@ class MyApp extends StatelessWidget {
         buttonColor: colorScheme['primary'],
         hintColor: colorScheme['text2'],
         brightness: Brightness.dark,
-        visualDensity: VisualDensity.standard,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: EntryPage(),
     );

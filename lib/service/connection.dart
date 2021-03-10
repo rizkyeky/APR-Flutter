@@ -1,11 +1,9 @@
 part of 'service.dart';
 
+
 class ConnectionService implements Service {
   final Connectivity _connectivity = Connectivity();
   ConnectionStatus status;
-
-  final ValueNotifier<ConnectionStatus> networkStatusNotifier =
-      ValueNotifier<ConnectionStatus>(ConnectionStatus.offline);
 
   ConnectionService() {
     _connectivity.onConnectivityChanged.listen((value) {
@@ -13,8 +11,8 @@ class ConnectionService implements Service {
       if (status != curStatus) {
         status = curStatus;
         debugPrint(status.toString());
-        if (networkStatusNotifier.value != status) {
-          networkStatusNotifier.value = status;
+        if (injector.networkStatusNotifier.value != status) {
+          injector.networkStatusNotifier.value = status;
         }
       }
     });
@@ -27,8 +25,8 @@ class ConnectionService implements Service {
       if (status != curStatus) {
         status = curStatus;
         debugPrint(status.toString());
-        if (networkStatusNotifier.value != status) {
-          networkStatusNotifier.value = status;
+        if (injector.networkStatusNotifier.value != status) {
+          injector.networkStatusNotifier.value = status;
         }
       }
     });
@@ -43,6 +41,6 @@ class ConnectionService implements Service {
 
   @override
   void dispose() {
-    networkStatusNotifier.dispose();
+    injector.networkStatusNotifier.dispose();
   }
 }

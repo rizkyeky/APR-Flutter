@@ -1,6 +1,6 @@
 part of 'component.dart';
 
-class ContainerList<T> extends StatelessWidget {
+class ContainerList<T extends Kategori> extends StatelessWidget {
 
   final EdgeInsetsGeometry padding;
   final Widget Function(BuildContext, int, T) bottomBuilder;
@@ -30,7 +30,7 @@ class ContainerList<T> extends StatelessWidget {
       builder: (context, snapshot) => 
       (snapshot.hasData) ? (snapshot.data.isSucess) ? ContainerImage(
         child: (insideBuilder != null) ? insideBuilder(context, index, snapshot.data.value) : null
-      ) : Text(snapshot.data.massage) : Skeleton(
+      ) : Center(child: Text(snapshot.data.massage)) : Skeleton(
         borderRadius: BorderRadius.circular(12),
       ),
     ),
