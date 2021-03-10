@@ -144,7 +144,7 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
               const SizedBox(height: 24),
               ContainerList(
                 containerCount: 3,
-                bottomBuilder: (context, index) => Column(
+                bottomBuilder: (context, index, data) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
@@ -158,7 +158,7 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
                     Text(bloc.listOfContainer2[index]['subtitle'], style: textTheme.bodyText2)
                   ],
                 ),
-                insideBuilder: (context, index) => Padding(
+                insideBuilder: (context, index, data) => Padding(
                   padding: const EdgeInsets.only(right: 12, top: 12),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

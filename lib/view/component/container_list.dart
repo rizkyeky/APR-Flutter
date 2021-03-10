@@ -3,20 +3,20 @@ part of 'component.dart';
 class ContainerList<T> extends StatelessWidget {
 
   final EdgeInsetsGeometry padding;
-  final Widget Function(BuildContext, int) bottomBuilder;
-  final Widget Function(BuildContext, int) insideBuilder;
+  final Widget Function(BuildContext, int, T) bottomBuilder;
+  final Widget Function(BuildContext, int, T) insideBuilder;
   final int containerCount;
   final double containerWidth;
   final double containerHeight;
   final double expandHeight;
-  final Future<T> Function(int) future;
+  final Future<ServiceResult<T>> Function(int) future;
 
   const ContainerList({
     this.bottomBuilder,
     this.insideBuilder,
     this.containerCount,
     this.future,
-    this.expandHeight = 64,
+    this.expandHeight = 48,
     this.containerWidth = 220,
     this.containerHeight = 280,
     this.padding = const EdgeInsets.symmetric(horizontal: 24)
@@ -25,12 +25,12 @@ class ContainerList<T> extends StatelessWidget {
   Widget buildContainer(BuildContext context, int index) => SizedBox(
     width: containerWidth,
     height: containerHeight,
-    child: FutureBuilder<T>(
-      future: future(index),
+    child: FutureBuilder<ServiceResult<T>>(
+      future: future(index+1),
       builder: (context, snapshot) => 
-      (snapshot.connectionState == ConnectionState.done) ? ContainerImage(
-        child: (insideBuilder != null) ? insideBuilder(context, index) : null
-      ) : Skeleton(
+      (snapshot.hasData) ? (snapshot.data.isSucess) ? ContainerImage(
+        child: (insideBuilder != null) ? insideBuilder(context, index, snapshot.data.value) : null
+      ) : Text(snapshot.data.massage) : Skeleton(
         borderRadius: BorderRadius.circular(12),
       ),
     ),
@@ -48,16 +48,17 @@ class ContainerList<T> extends StatelessWidget {
       separatorBuilder: (_, i) => SizedBox(width: i != containerCount-1 ? 24 : 0),
       itemBuilder: (context, index) => (bottomBuilder != null) ? SizedBox(
         width: containerWidth,
-        child: FutureBuilder<T>(
-          future: future(index),
+        child: FutureBuilder<ServiceResult<T>>(
+          future: future(index+1),
           builder: (context, snapshot) => 
-          (snapshot.connectionState == ConnectionState.done) ? Column(
+          (snapshot.hasData) ? (snapshot.data.isSucess) ? Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               buildContainer(context, index),
-              bottomBuilder(context, index),
+              bottomBuilder(context, index, snapshot.data.value),
             ],
-          ) : Column(
+          ) : Text(snapshot.data.massage) : Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Skeleton(

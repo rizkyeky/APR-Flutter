@@ -74,40 +74,45 @@ class _PageState extends State<Page> {
     injector.screenHeight = MediaQuery.of(context).size.height;
     injector.screenWidth = MediaQuery.of(context).size.width;
 
-    // return ValueListenableBuilder<ConnectionStatus>(
-    //   valueListenable: injector.getService<ConnectionService>().networkStatusNotifier,
-    //   builder: (context, value, child) {
-    //     if (widget.hasNetworkSnack) {
-    //       if (value == ConnectionStatus.offline && !hasOnline) {
-    //         Future.delayed(const Duration(milliseconds: 500))
-    //           .whenComplete(() => showFlash(
-    //             context: context,
-    //             duration: const Duration(seconds: 3),
-    //             builder: (context, controller) => SnackFlashBar(
-    //               controller: controller,
-    //               contentMessage: 'OFFLINE',
-    //               actionMessage: 'DISMISS',
-    //             )
-    //           ));
-    //         hasOffline = true;
-    //       } else if (hasOffline) {
-    //         Future.delayed(const Duration(milliseconds: 500))
-    //           .whenComplete(() => showFlash(
-    //             context: context,
-    //             duration: const Duration(seconds: 1),
-    //             builder: (context, controller) => SnackFlashBar(
-    //               controller: controller,
-    //               contentMessage: 'ONLINE',
-    //               actionMessage: 'DISMISS',
-    //             )
-    //           ));
-    //         hasOnline = true;
-    //       }
-    //     }
-    //     return child;
-    //   },
-    //   child: widget.build(context),
-    // );
-    return widget.build(context);
+    return ValueListenableBuilder<ConnectionStatus>(
+      valueListenable: injector.getService<ConnectionService>().networkStatusNotifier,
+      builder: (context, value, child) {
+        if (widget.hasNetworkSnack) {
+          if (value == ConnectionStatus.offline && !hasOnline) {
+            Future.delayed(const Duration(milliseconds: 500))
+              .whenComplete(() => showFlash(
+                context: context,
+                // duration: const Duration(seconds: 3),
+                builder: (context, controller) => SnackFlashBar(
+                  controller: controller,
+                  contentMessage: 'OFFLINE',
+                  actionMessage: 'DISMISS',
+                )
+              ));
+            hasOffline = true;
+          } else if (hasOffline) {
+            Future.delayed(const Duration(milliseconds: 500))
+              .whenComplete(() => showFlash(
+                context: context,
+                duration: const Duration(seconds: 1),
+                builder: (context, controller) => SnackFlashBar(
+                  controller: controller,
+                  contentMessage: 'ONLINE',
+                  actionMessage: 'DISMISS',
+                )
+              ));
+            hasOnline = true;
+          }
+        }
+        return child;
+      },
+      child: ValueListenableBuilder<bool>(
+        valueListenable: injector.rebuild,
+        builder: (context, value, _) {
+          return widget.build(context);
+        }
+      ),
+    );
+    // return widget.build(context);
   }
 }

@@ -137,7 +137,7 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
               const SizedBox(height: 24),
               ContainerList(
                 containerCount: 3,
-                insideBuilder: (context, index) => Padding(
+                insideBuilder: (context, index, data) => Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,

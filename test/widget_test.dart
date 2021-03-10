@@ -58,6 +58,20 @@ void main() {
         throw result.massage;
       }
     });
+
+    test('Get Pelatihan', () async {
+      final KategoriService _service = KategoriService();
+      final result = await _service.getPelatihan(1);
+      
+      if (result.isSucess) {
+
+        debugPrint(result.value.toString());
+
+      } else {
+        throw result.massage;
+      }
+
+    });
   });
 
   // group('Model', () {

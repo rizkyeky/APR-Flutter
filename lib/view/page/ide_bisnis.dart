@@ -18,10 +18,10 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
       body: ListView(
         children: [
           const SizedBox(height: 24,),
-          ContainerList<ServiceResult<Ide>>(
+          ContainerList<Ide>(
             containerCount: 3,
             future: bloc.kategoriService.getIde,
-            insideBuilder: (context, index) => Padding(
+            insideBuilder: (context, index, data) => Padding(
               padding: const EdgeInsets.all(12),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,

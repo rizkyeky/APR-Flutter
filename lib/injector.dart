@@ -1,6 +1,7 @@
 
 import 'dart:typed_data';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
 
 import 'package:get_it/get_it.dart';
@@ -45,6 +46,8 @@ class Injector {
     final bytes = await rootBundle.load(path);
     imagePlaceHolder = bytes.buffer.asUint8List();
   }
+
+  ValueNotifier<bool> rebuild = ValueNotifier(false);
 }
 
 final Injector injector = Injector.instance;

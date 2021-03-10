@@ -108,7 +108,7 @@ class KategoriService implements Service {
       // debugPrint(_api.pelatihanAll.toString());
 
       final http.Response response = await _client.post(_api.pelatihan, body: {
-        'id_ide': index.toString()
+        'id_pelatihan_usaha': index.toString()
       })
         .timeout(const Duration(seconds: 10));
 
@@ -124,6 +124,7 @@ class KategoriService implements Service {
         );
       }
     } catch (e) {
+      // debugPrint(e.toString());
       final error = e.toString().substring(0, e.toString().indexOf(':'));
       return ServiceResult(massage: 'not success $error', isSucess: false);
     }

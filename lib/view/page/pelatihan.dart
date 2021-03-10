@@ -19,10 +19,10 @@ class PelatihanPage extends Page<PelatihanBloc> {
       body: ListView(
         children: [
           const SizedBox(height: 24,),
-          ContainerList<ServiceResult<Pelatihan>>(
+          ContainerList<Pelatihan>(
             containerCount: 3,
             future: bloc.kategoriService.getPelatihan,
-            bottomBuilder: (context, index) => Column(
+            bottomBuilder: (context, index, data) => Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(bloc.listOfContainer2[index]['title'], style: textTheme.subtitle1.copyWith(
@@ -33,7 +33,7 @@ class PelatihanPage extends Page<PelatihanBloc> {
                 Text(bloc.listOfContainer2[index]['subtitle'], style: textTheme.bodyText2)
               ],
             ),
-            insideBuilder: (context, index) => Padding(
+            insideBuilder: (context, index, data) => Padding(
               padding: const EdgeInsets.only(right: 12, top: 12),
               child: Align(
                 alignment: Alignment.topRight,
