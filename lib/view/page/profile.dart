@@ -108,14 +108,11 @@ class ProfilePage extends Page<ProfileBloc> {
                 ],
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.all(24),
+            const Padding(
+              padding: EdgeInsets.all(24),
               child: MainTextField(
                 hint: 'Masukan kode promo',
-                suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(Icons.arrow_forward)
-                ),
+                icon: Icons.arrow_forward
               ),
             ),
             Padding(
@@ -127,21 +124,25 @@ class ProfilePage extends Page<ProfileBloc> {
             SizedBox(
               height: 120+24.0,
               child: ListView.separated(
-                padding: const EdgeInsets.symmetric(horizontal: 24,vertical: 12),
+                padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 separatorBuilder: (_, i) => const SizedBox(width: 12),
-                itemBuilder: (_, i) => (i != 2) ? ContainerImage(
+                itemBuilder: (_, i) => (i != 2) ? Container(
                   width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: MemoryImage(injector.imagePlaceHolder)
+                    )
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(12),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text('Bingkisan Daerah', style: textTheme.subtitle2.copyWith(
-                          color: Colors.white
-                        )),
-                      ],
+                    child: Align(
+                      alignment: Alignment.bottomLeft,
+                      child: Text('Bingkisan Daerah', style: textTheme.subtitle2.copyWith(
+                        color: Colors.white
+                      )),
                     ),
                   )
                 ) : SizedBox(
@@ -177,8 +178,14 @@ class ProfilePage extends Page<ProfileBloc> {
                 scrollDirection: Axis.horizontal,
                 itemCount: 3,
                 separatorBuilder: (_, i) => const SizedBox(width: 12),
-                itemBuilder: (_, i) => (i != 2) ? ContainerImage(
+                itemBuilder: (_, i) => (i != 2) ? Container(
                   width: 120,
+                  decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    image: DecorationImage(
+                      image: MemoryImage(injector.imagePlaceHolder)
+                    )
+                  ),
                   child: Padding(
                     padding: const EdgeInsets.all(12),
                     child: Align(
@@ -209,16 +216,18 @@ class ProfilePage extends Page<ProfileBloc> {
             ),
             Padding(
               padding: const EdgeInsets.all(24),
-              child: FlatButton(
+              child: TextButton(
                 onPressed: () => Navigator.pushAndRemoveUntil(
                   context, 
                   MaterialPageRoute(builder: (_) => EntryPage()), 
                   (_) => false
                 ),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(6),
+                style: TextButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  backgroundColor: colorScheme['background2'],
                 ),
-                color: colorScheme['background2'],
                 child: Text('KELUAR', style: textTheme.button.copyWith(
                   color: colorScheme['primary']
                 )),

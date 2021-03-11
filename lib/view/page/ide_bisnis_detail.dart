@@ -1,48 +1,43 @@
 part of 'page.dart';
 
 class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
-  
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
 
-  @override
-  void init() {
-    // TODO: implement init
-  }
-  
+  final Ide data;
+
+  IdeBisnisDetailPage({
+    this.data,
+    Key key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomSheet: Material(
+      bottomSheet: Container(
         color: colorScheme['background2'],
-        child: SizedBox(
-          height: 60,
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Spacer(),
-              Center(
-                child: SizedBox(
-                  width: injector.screenWidth-(200*0.8),
-                  child: Text('Ide Bisnis Laundry di Era Pademi', style: textTheme.bodyText1)
-                ),
+        height: 60,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            const Spacer(),
+            Center(
+              child: SizedBox(
+                width: injector.screenWidth-(200*0.8),
+                child: Text(data.nama, style: textTheme.bodyText1)
               ),
-              const Spacer(),
-              TextButton(
-                style: TextButton.styleFrom(
+            ),
+            const Spacer(),
+            TextButton(
+              style: TextButton.styleFrom(
                 backgroundColor: colorScheme['primary'],
-                // shape: const ContinuousRectangleBorder(),
-                ),
-                onPressed: () {},
-                child: Text('WUJUDKAN', style: textTheme.bodyText1.copyWith(
-                  color: Colors.white
-                ),)
-              )
-            ],
-          ),
+                shape: const RoundedRectangleBorder(),
+              ),
+              onPressed: () {},
+              child: Text('WUJUDKAN', style: textTheme.bodyText1.copyWith(
+                color: Colors.white
+              ),)
+            )
+          ],
         ),
       ),
       body: CustomScrollView(
@@ -57,16 +52,16 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
                 )
               ),
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 24, left: 24),
+                padding: const EdgeInsets.all(24),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('20 Desember 2020', style: textTheme.headline6.copyWith(
+                    Text(data.tanggalUpdate, style: textTheme.headline6.copyWith(
                       fontWeight: FontWeight.normal,
                       color: Colors.white,
                     )),
-                    Text('Mencoba Usaha Furnitur wilayah Jogya', style: textTheme.headline5.copyWith(
+                    Text(data.nama, style: textTheme.headline5.copyWith(
                       color: Colors.white
                     )),
                   ],
@@ -135,9 +130,10 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
                 )
               ),
               const SizedBox(height: 24),
-              ContainerList(
+              ContainerList<Ide>(
+                future: bloc.kategoriService.getIde,
                 containerCount: 3,
-                insideBuilder: (context, index, data) => Padding(
+                insideBuilder: (_, index, data) => Padding(
                   padding: const EdgeInsets.all(12),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -145,7 +141,6 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
                         children:  [
                           const Spacer(),
                           SimpleChip(
@@ -155,10 +150,10 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
                         ],
                       ),
                       const Spacer(),
-                      Text(bloc.listOfContainer1[index]['overline'], style: textTheme.headline5.copyWith(
+                      Text(data.subNama, style: textTheme.headline5.copyWith(
                         color: Colors.white
                       )),
-                      Text(bloc.listOfContainer1[index]['title'], style: textTheme.headline6.copyWith(
+                      Text(data.nama, style: textTheme.headline6.copyWith(
                         color: Colors.white,
                         fontWeight: FontWeight.normal,
                       )),
