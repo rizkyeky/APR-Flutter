@@ -10,7 +10,7 @@ class ConnectionService implements Service {
       final curStatus = _getNetworkStatus(value);
       if (status != curStatus) {
         status = curStatus;
-        debugPrint(status.toString());
+        // debugPrint(status.toString());
         if (injector.networkStatusNotifier.value != status) {
           injector.networkStatusNotifier.value = status;
         }
@@ -24,7 +24,7 @@ class ConnectionService implements Service {
       final curStatus = _getNetworkStatus(value);
       if (status != curStatus) {
         status = curStatus;
-        debugPrint(status.toString());
+        // debugPrint(status.toString());
         if (injector.networkStatusNotifier.value != status) {
           injector.networkStatusNotifier.value = status;
         }

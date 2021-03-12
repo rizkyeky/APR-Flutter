@@ -65,7 +65,7 @@ class HomePage extends Page<HomeBloc> {
                   future: bloc.kategoriService.getIde(index+1),
                   builder: (_, snapshot) => 
                   (snapshot.hasData) ? (snapshot.data.isSucess) ? OpenContainer(
-                    openBuilder: (context, action) => IdeBisnisDetailPage(),
+                    openBuilder: (context, action) => IdeBisnisDetailPage(data: snapshot.data.value),
                     closedColor: Colors.transparent,
                     closedShape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)
@@ -94,7 +94,7 @@ class HomePage extends Page<HomeBloc> {
                         maxLines: 2,
                       ) 
                     ),
-                  ) : Text(snapshot.data.massage) : Skeleton(
+                  ) : Center(child: Text(snapshot.data.massage)) : Skeleton(
                     width: double.infinity,
                     borderRadius: const BorderRadius.all(Radius.circular(12)),
                   )
@@ -133,6 +133,7 @@ class HomePage extends Page<HomeBloc> {
               subtitle: Text('Wujudkan Ide Bisnis Anda', style: textTheme.bodyText1,),
             ),
             ContainerList<Ide>(
+              openBuilder: (data) => IdeBisnisDetailPage(data: data),
               future: bloc.kategoriService.getIde,
               containerCount: 3,
               insideBuilder: (_, index, data) => Padding(
@@ -166,11 +167,13 @@ class HomePage extends Page<HomeBloc> {
             ...List.generate(2, (index) => FutureBuilder<List<ServiceResult<Ide>>>(
               future: bloc.get2Ide(),
               builder: (context, snapshot) => (snapshot.hasData) 
+              ? (snapshot.data[index].isSucess)
                 ? ContainerRow(
                   data: snapshot.data,
                   padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                  openWidget: IdeBisnisDetailPage()
-                ) : const SkeletonContainerRow()
+                  openWidget: IdeBisnisDetailPage(data: snapshot.data[index].value)
+                ) : Center(child: Text(snapshot.data[index].massage),) 
+              : const SkeletonContainerRow()
             )),
             Padding(
               padding: const EdgeInsets.all(24),
@@ -187,6 +190,7 @@ class HomePage extends Page<HomeBloc> {
               subtitle: Text('Tambahkan Kemampuan Anda', style: textTheme.bodyText1,),
             ),
             ContainerList<Pelatihan>(
+              openBuilder: (data) => PelatihanDetailPage(data: data),
               containerCount: 3,
               future: bloc.kategoriService.getPelatihan,
               bottomBuilder: (context, index, data) => Column(
@@ -218,12 +222,12 @@ class HomePage extends Page<HomeBloc> {
                 color: colorScheme['primary']
               )),
             ),
-            ...List.generate(3, (index) => FutureBuilder<ServiceResult>(
-              future: bloc.kategoriService.getIde(index+1),
+            ...List.generate(3, (index) => FutureBuilder<ServiceResult<Pelatihan>>(
+              future: bloc.kategoriService.getPelatihan(index+1),
               builder: (context, snapshot) => (snapshot.hasData) ? (snapshot.data.isSucess)
               ? ContainerTile(
+                data: snapshot.data.value,
                 padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                openWidget: PelatihanDetailPage(),
               ) : Center(child: Text(snapshot.data.massage)) : const SkeletonContainerTile()
             )),
             Padding(

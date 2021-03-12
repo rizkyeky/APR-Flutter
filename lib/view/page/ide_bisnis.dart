@@ -22,9 +22,11 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
         },
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 24,),
               ContainerList<Ide>(
+                openBuilder: (data) => IdeBisnisDetailPage(data: data),
                 future: bloc.kategoriService.getIde,
                 containerCount: 3,
                 insideBuilder: (_, index, data) => Padding(
@@ -90,11 +92,13 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
                     ...List.generate(2, (index) => FutureBuilder<List<ServiceResult<Ide>>>(
                       future: bloc.get2Ide(),
                       builder: (context, snapshot) => (snapshot.hasData) 
+                      ? (snapshot.data[index].isSucess)
                         ? ContainerRow(
                           data: snapshot.data,
                           padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
-                          openWidget: IdeBisnisDetailPage()
-                        ) : const SkeletonContainerRow()
+                          openWidget: IdeBisnisDetailPage(data: snapshot.data[index].value),
+                        ) : Center(child: Text(snapshot.data[index].massage),) 
+                      : const SkeletonContainerRow()
                     )),
                   ],
                 )
@@ -108,11 +112,13 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
               ...List.generate(2, (index) => FutureBuilder<List<ServiceResult<Ide>>>(
                 future: bloc.get2Ide(),
                 builder: (context, snapshot) => (snapshot.hasData) 
+                ? (snapshot.data[index].isSucess)
                   ? ContainerRow(
                     data: snapshot.data,
-                    padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
-                    openWidget: IdeBisnisDetailPage()
-                  ) : const SkeletonContainerRow()
+                    padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
+                    openWidget: IdeBisnisDetailPage(data: snapshot.data[index].value)
+                  ) : Center(child: Text(snapshot.data[index].massage),) 
+                : const SkeletonContainerRow()
               )),
             ],
           ),

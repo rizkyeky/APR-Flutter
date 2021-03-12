@@ -23,9 +23,11 @@ class PelatihanPage extends Page<PelatihanBloc> {
         },
         child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               const SizedBox(height: 24,),
               ContainerList<Pelatihan>(
+                openBuilder: (data) => PelatihanDetailPage(data: data),
                 containerCount: 3,
                 future: bloc.kategoriService.getPelatihan,
                 bottomBuilder: (context, index, data) => Column(
@@ -53,6 +55,7 @@ class PelatihanPage extends Page<PelatihanBloc> {
               const SizedBox(height: 24,),
               StatefulBuilder(
                 builder: (context, setState) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(
                       height: 50,
@@ -74,43 +77,55 @@ class PelatihanPage extends Page<PelatihanBloc> {
                         )
                       ),
                     ),
-                    ... List.generate(4, (index) => ContainerTile(
-                      openWidget: PelatihanDetailPage(),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    ))
+                    ...List.generate(3, (index) => FutureBuilder<ServiceResult<Pelatihan>>(
+                      future: bloc.kategoriService.getPelatihan(index+1),
+                      builder: (context, snapshot) => (snapshot.hasData) ? (snapshot.data.isSucess)
+                      ? ContainerTile(
+                        data: snapshot.data.value,
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      ) : Center(child: Text(snapshot.data.massage)) : const SkeletonContainerTile()
+                    )),
                   ],
                 )
               ),
               const SizedBox(height: 24),
               StatefulBuilder(
                 builder: (context, setState) => Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    Wrap(
-                      spacing: 12,
-                      runSpacing: 12,
-                      children: List.generate(bloc.listOfKategori2.length, (index) => SizedBox(
-                        width: injector.screenWidth/2 - 36,
-                        child: OptionButton(
-                          label: bloc.listOfKategori2[index]['label'],
-                          labelStyle: textTheme.subtitle1.copyWith(
-                            color: (indexOfKategori2 == index) ? Colors.white : colorScheme['text1']
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Wrap(
+                        spacing: 12,
+                        runSpacing: 12,
+                        children: List.generate(bloc.listOfKategori2.length, (index) => SizedBox(
+                          width: injector.screenWidth/2 - 30,
+                          child: OptionButton(
+                            label: bloc.listOfKategori2[index]['label'],
+                            labelStyle: textTheme.subtitle1.copyWith(
+                              color: (indexOfKategori2 == index) ? Colors.white : colorScheme['text1']
+                            ),
+                            icon: SvgPicture.asset(bloc.listOfKategori2[index]['icon'],
+                              color: (indexOfKategori2 == index) ? Colors.white : colorScheme['text1'],
+                              height: 24,
+                            ),
+                            color: (indexOfKategori2 == index) ? colorScheme['primary'] : null,
+                            onTap: () => setState(() {
+                              indexOfKategori2 = index;
+                            }),
                           ),
-                          icon: SvgPicture.asset(bloc.listOfKategori2[index]['icon'],
-                            color: (indexOfKategori2 == index) ? Colors.white : colorScheme['text1'],
-                            height: 24,
-                          ),
-                          color: (indexOfKategori2 == index) ? colorScheme['primary'] : null,
-                          onTap: () => setState(() {
-                            indexOfKategori2 = index;
-                          }),
-                        ),
-                      ))
+                        ))
+                      ),
                     ),
                     const SizedBox(height: 24,),
-                    ... List.generate(4, (index) => ContainerTile(
-                      openWidget: PelatihanDetailPage(),
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                    ))
+                    ...List.generate(3, (index) => FutureBuilder<ServiceResult<Pelatihan>>(
+                      future: bloc.kategoriService.getPelatihan(index+1),
+                      builder: (context, snapshot) => (snapshot.hasData) ? (snapshot.data.isSucess)
+                      ? ContainerTile(
+                        data: snapshot.data.value,
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+                      ) : Center(child: Text(snapshot.data.massage)) : const SkeletonContainerTile()
+                    )),
                   ],
                 )
               )

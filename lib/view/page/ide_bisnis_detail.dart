@@ -131,6 +131,7 @@ class IdeBisnisDetailPage extends Page<IdeBisnisDetailBloc> {
               ),
               const SizedBox(height: 24),
               ContainerList<Ide>(
+                openBuilder: (data) => IdeBisnisDetailPage(data: data),
                 future: bloc.kategoriService.getIde,
                 containerCount: 3,
                 insideBuilder: (_, index, data) => Padding(

@@ -3,10 +3,10 @@ part of 'component.dart';
 class ContainerTile extends StatelessWidget {
 
   final EdgeInsetsGeometry padding;
-  final Widget openWidget;
+  final Pelatihan data;
 
   const ContainerTile({
-    this.openWidget,
+    @required this.data,
     this.padding = const EdgeInsets.symmetric(vertical: 12)
   });
 
@@ -22,6 +22,7 @@ class ContainerTile extends StatelessWidget {
         closedShape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
+        openBuilder: (context, action) => PelatihanDetailPage(data: data),
         closedBuilder: (context, action) => SizedBox(
           height: 150,
           child: Row(
@@ -47,12 +48,12 @@ class ContainerTile extends StatelessWidget {
                         color: Colors.white
                       )), 
                     ),
-                    Text('Pelatihan Untuk Membuat Furniture', 
+                    Text(data.nama, 
                       style: textTheme.bodyText1.copyWith(
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text('Member', style: textTheme.bodyText2),
+                    Text(data.subNama, style: textTheme.bodyText2),
                   ],
                 ),
               ),
@@ -60,7 +61,6 @@ class ContainerTile extends StatelessWidget {
             ],
           ),
         ), 
-        openBuilder: (context, action) => openWidget
       )
     );
   }

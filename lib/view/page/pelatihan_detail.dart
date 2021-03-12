@@ -2,16 +2,10 @@ part of 'page.dart';
 
 class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
   
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
+  final Pelatihan data;
 
-  @override
-  void init() {
-    // TODO: implement init
-  }
-  
+  PelatihanDetailPage({this.data});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,7 +22,7 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('Investasi', style: textTheme.bodyText1),
+                  Text(data.nama, style: textTheme.bodyText1),
                   Text('Rp. 30.000', style: textTheme.headline6.copyWith(
                     color: colorScheme['primary']
                   ))
@@ -36,15 +30,15 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
               ),
               const Spacer(),
               TextButton(
-              style: TextButton.styleFrom(
-                backgroundColor: colorScheme['primary'],
-                shape: const RoundedRectangleBorder(),
-              ),
-              onPressed: () {},
-              child: Text('DAFTARKAN', style: textTheme.bodyText1.copyWith(
-                color: Colors.white
-              ),)
-            )
+                style: TextButton.styleFrom(
+                  backgroundColor: colorScheme['primary'],
+                  shape: const RoundedRectangleBorder(),
+                ),
+                onPressed: () {},
+                child: Text('DAFTARKAN', style: textTheme.bodyText1.copyWith(
+                  color: Colors.white
+                ),)
+              )
             ],
           ),
         ),
@@ -66,7 +60,7 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
                   mainAxisAlignment: MainAxisAlignment.end,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Pelatihan Memasak Makanan Khas Surabaya', style: textTheme.headline5.copyWith(
+                    Text(data.nama, style: textTheme.headline5.copyWith(
                       color: Colors.white
                     )),
                   ],
@@ -145,6 +139,7 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
               ),
               const SizedBox(height: 24),
               ContainerList<Pelatihan>(
+                openBuilder: (data) => PelatihanDetailPage(data: data),
                 containerCount: 3,
                 future: bloc.kategoriService.getPelatihan,
                 bottomBuilder: (context, index, data) => Column(

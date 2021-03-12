@@ -3,6 +3,7 @@ import 'package:animations/animations.dart';
 import 'package:flash/flash.dart';
 import 'package:skeleton_animation/skeleton_animation.dart';
 
+import '../page/page.dart';
 import '../../injector.dart';
 import '../../model/model.dart';
 import '../../service/service.dart';
