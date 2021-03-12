@@ -18,7 +18,7 @@ class KategoriService implements Service {
     try {      
       // debugPrint(_api.ideAll.toString());
       
-      final http.Response response = await _client.post(_api.ideAll, body: {
+      final response = await _client.post(_api.ideAll, body: {
         'id_ide': ''
       })
         .timeout(const Duration(seconds: 10));
@@ -49,7 +49,7 @@ class KategoriService implements Service {
     try {      
       // debugPrint(_api.ide.toString());
       
-      final http.Response response = await _client.post(_api.ide, body: {
+      final response = await _client.post(_api.ide, body: {
         'id_ide': index.toString()
       })
         .timeout(const Duration(seconds: 10));
@@ -78,7 +78,7 @@ class KategoriService implements Service {
     try {
       // debugPrint(_api.pelatihanAll.toString());
 
-      final http.Response response = await _client.post(_api.pelatihanAll, body: {
+      final response = await _client.post(_api.pelatihanAll, body: {
         'id_ide': ''
       })
         .timeout(const Duration(seconds: 10));
@@ -107,7 +107,7 @@ class KategoriService implements Service {
     try {
       // debugPrint(_api.pelatihanAll.toString());
 
-      final http.Response response = await _client.post(_api.pelatihan, body: {
+      final response = await _client.post(_api.pelatihan, body: {
         'id_pelatihan_usaha': index.toString()
       })
         .timeout(const Duration(seconds: 10));

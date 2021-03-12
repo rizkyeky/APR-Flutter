@@ -5,8 +5,8 @@ class PelatihanPage extends Page<PelatihanBloc> {
   @override
   Widget build(BuildContext context) {
   
-    int indexOfKategori1 = 0;
-    int indexOfKategori2 = 0;
+    var indexOfKategori1 = 0;
+    var indexOfKategori2 = 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -18,8 +18,8 @@ class PelatihanPage extends Page<PelatihanBloc> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          Future.delayed(const Duration(seconds: 1))
-            .whenComplete(() => injector.rebuild());
+          await Future.delayed(const Duration(seconds: 1))
+            .whenComplete(injector.rebuild);
         },
         child: SingleChildScrollView(
           child: Column(

@@ -45,8 +45,8 @@ class HomePage extends Page<HomeBloc> {
     ),
     body: RefreshIndicator(
       onRefresh: () async {
-        Future.delayed(const Duration(seconds: 1))
-          .whenComplete(() => injector.rebuild());
+        await Future.delayed(const Duration(seconds: 1))
+          .whenComplete(injector.rebuild);
       },
       child: SingleChildScrollView(
         child: Column(

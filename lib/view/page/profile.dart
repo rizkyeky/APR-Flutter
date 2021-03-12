@@ -38,12 +38,14 @@ class ProfilePage extends Page<ProfileBloc> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Expanded(
-                    child: FlatButton(
-                      color: colorScheme['primary'],
-                      onPressed: () async => showPinjamanSheet(context),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: colorScheme['primary'],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                        ),
                       ),
+                      onPressed: () async => showPinjamanSheet(context),
                       child: Text('PINJAMAN', style: textTheme.button.copyWith(
                         color: Colors.white
                       )),
@@ -51,11 +53,13 @@ class ProfilePage extends Page<ProfileBloc> {
                   ),
                   const SizedBox(width: 24,),
                   Expanded(
-                    child: FlatButton(
-                      color: colorScheme['background2'],
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6),
-                        side: BorderSide(color: colorScheme['primary'])
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                        backgroundColor: colorScheme['background2'],
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(6),
+                          side: BorderSide(color: colorScheme['primary'])
+                        ),
                       ),
                       onPressed: () {},
                       child: Text('TABUNGAN', style: textTheme.button.copyWith(
@@ -108,11 +112,20 @@ class ProfilePage extends Page<ProfileBloc> {
                 ],
               ),
             ),
-            const Padding(
-              padding: EdgeInsets.all(24),
+            Padding(
+              padding: const EdgeInsets.all(24),
               child: MainTextField(
                 hint: 'Masukan kode promo',
-                icon: Icons.arrow_forward
+                suffix: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    decoration: BoxDecoration(
+                      color: colorScheme['primary'],
+                      borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
+                    ),
+                    child: const Icon(Icons.arrow_forward),
+                  ),
+                ),
               ),
             ),
             Padding(

@@ -5,7 +5,7 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
   @override
   Widget build(BuildContext context) {
     
-    int indexOfKategori = 0;
+    var indexOfKategori = 0;
 
     return Scaffold(
       appBar: AppBar(
@@ -17,8 +17,8 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
       ),
       body: RefreshIndicator(
         onRefresh: () async {
-          Future.delayed(const Duration(seconds: 1))
-            .whenComplete(() => injector.rebuild());
+          await Future.delayed(const Duration(seconds: 1))
+            .whenComplete(injector.rebuild);
         },
         child: SingleChildScrollView(
           child: Column(
@@ -94,7 +94,7 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
                           data: snapshot.data,
                           padding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
                           openWidget: IdeBisnisDetailPage()
-                        ) : SkeletonContainerRow()
+                        ) : const SkeletonContainerRow()
                     )),
                   ],
                 )
@@ -112,7 +112,7 @@ class IdeBisnisPage extends Page<IdeBisnisBloc> {
                     data: snapshot.data,
                     padding: const EdgeInsets.fromLTRB(24, 0, 24, 12),
                     openWidget: IdeBisnisDetailPage()
-                  ) : SkeletonContainerRow()
+                  ) : const SkeletonContainerRow()
               )),
             ],
           ),

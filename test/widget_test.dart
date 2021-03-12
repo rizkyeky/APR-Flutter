@@ -6,7 +6,7 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 // import 'package:flutter/material.dart';
-import 'package:apr/model/model.dart';
+// import 'package:apr/model/model.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 // import 'package:business_course/main.dart';
@@ -17,7 +17,7 @@ void main() {
 
   group('Services', () {
     test('Get Ide All', () async {
-      final KategoriService _service = KategoriService();
+      final _service = KategoriService();
       final result = await _service.getIdeAll();
       
       if (result.isSucess) {
@@ -32,7 +32,7 @@ void main() {
     });
 
     test('Get Pelatihan All', () async {
-      final KategoriService _service = KategoriService();
+      final _service = KategoriService();
       final result = await _service.getPelatihanAll();
       
       if (result.isSucess) {
@@ -47,7 +47,7 @@ void main() {
     });
 
     test('Get Ide', () async {
-      final KategoriService _service = KategoriService();
+      final _service = KategoriService();
       final result = await _service.getIde(1);
       
       if (result.isSucess) {
@@ -55,13 +55,14 @@ void main() {
         debugPrint(result.value.toString());
         debugPrint(result.value.gambar);
         debugPrint(result.value.gamThumb);
+        
       } else {
         throw result.massage;
       }
     });
 
     test('Get Pelatihan', () async {
-      final KategoriService _service = KategoriService();
+      final _service = KategoriService();
       final result = await _service.getPelatihan(1);
       
       if (result.isSucess) {

@@ -8,7 +8,8 @@ class MainTextField extends StatelessWidget {
   final void Function(String) onChanged;
   final void Function() onTap;
   final bool enabled;
-  final IconData icon;
+  final Widget suffix;
+
 
 
   const MainTextField({
@@ -16,7 +17,7 @@ class MainTextField extends StatelessWidget {
     this.contentPadding,
     this.onChanged,
     this.onTap,
-    this.icon,
+    this.suffix,
     this.maxLines = 1,
     this.enabled = true,
   });
@@ -45,18 +46,9 @@ class MainTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: colorScheme['background2'],
-        suffixIcon: GestureDetector(
-          onTap: onTap,
-          child: Container(
-            decoration: BoxDecoration(
-              color: colorScheme['primary'],
-              borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),
-            ),
-            child: Icon(icon),
-          ),
-        ),
-        
-        contentPadding: const EdgeInsets.only(left: 15.0),
+        suffixIcon: suffix,
+        isDense: true,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
         border: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(12)),
           borderSide: BorderSide.none

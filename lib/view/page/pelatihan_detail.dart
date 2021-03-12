@@ -35,14 +35,16 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
                 ],
               ),
               const Spacer(),
-              FlatButton(
-                color: colorScheme['primary'],
-                onPressed: () {},
-                shape: const ContinuousRectangleBorder(),
-                child: Text('Daftar', style: textTheme.bodyText1.copyWith(
-                  color: Colors.white
-                ),)
-              )
+              TextButton(
+              style: TextButton.styleFrom(
+                backgroundColor: colorScheme['primary'],
+                shape: const RoundedRectangleBorder(),
+              ),
+              onPressed: () {},
+              child: Text('DAFTARKAN', style: textTheme.bodyText1.copyWith(
+                color: Colors.white
+              ),)
+            )
             ],
           ),
         ),
@@ -142,40 +144,28 @@ class PelatihanDetailPage extends Page<PelatihanDetailBloc> {
                 )
               ),
               const SizedBox(height: 24),
-              ContainerList(
+              ContainerList<Pelatihan>(
                 containerCount: 3,
+                future: bloc.kategoriService.getPelatihan,
                 bottomBuilder: (context, index, data) => Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    SizedBox(
-                      width: 220-(injector.screenWidth*0.1),
-                      child: Text(bloc.listOfContainer2[index]['title'], style: textTheme.subtitle1.copyWith(
-                        height: 1.2,
-                        color: colorScheme['primary'],
-                        fontWeight: FontWeight.bold,
-                      ))
-                    ),
+                    Text(data.nama, style: textTheme.subtitle1.copyWith(
+                      height: 1.2,
+                      color: colorScheme['primary'],
+                      fontWeight: FontWeight.bold,
+                    )),
                     Text(bloc.listOfContainer2[index]['subtitle'], style: textTheme.bodyText2)
                   ],
                 ),
                 insideBuilder: (context, index, data) => Padding(
                   padding: const EdgeInsets.only(right: 12, top: 12),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.baseline,
-                        children:  [
-                          const Spacer(),
-                          SimpleChip(
-                            color: Colors.white,
-                            child: Text(bloc.listOfContainer2[index]['chip'], style: textTheme.subtitle2)
-                          )
-                        ],
-                      ),
-                    ],
+                  child: Align(
+                    alignment: Alignment.topRight,
+                    child: SimpleChip(
+                      color: Colors.white,
+                      child: Text(bloc.listOfContainer2[index]['chip'], style: textTheme.subtitle2)
+                    ),
                   ),
                 ),
               ),

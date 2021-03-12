@@ -12,9 +12,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await injector.init();
   await injector.setup();
-  runApp(
-    MyApp()
-  );
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {

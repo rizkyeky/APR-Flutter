@@ -70,7 +70,7 @@ class MainButton extends StatelessWidget {
     style: ElevatedButton.styleFrom(
       primary: color ?? colorScheme['accent2'],
       padding: const EdgeInsets.symmetric(
-        vertical: 14, horizontal: 32 
+        vertical: 18, horizontal: 32 
       ),
       shape: shape ?? const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(12))

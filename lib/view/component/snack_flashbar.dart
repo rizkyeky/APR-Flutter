@@ -35,7 +35,7 @@ class SnackFlashBar extends StatelessWidget {
       child: FlashBar(
         message: Text(contentMessage, style: contentMessageStyle ?? theme.snackBarTheme.contentTextStyle,),
         primaryAction: TextButton(
-          onPressed: () => controller.dismiss(), 
+          onPressed: controller.dismiss, 
           child: Text(actionMessage, style: actionMessageStyle,)
         ),
       ),

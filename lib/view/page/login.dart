@@ -3,16 +3,6 @@ part of 'page.dart';
 class LoginPage extends Page<EntryBloc> {
 
   LoginPage() : super(hasNetworkSnack: true);
-
-  @override
-  void dispose() {
-    // TODO: implement dispose
-  }
-
-  @override
-  void init() {
-    // TODO: implement init
-  }
   
   @override
   Widget build(BuildContext context) => Material(
@@ -78,17 +68,17 @@ class LoginPainter1 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
         
-    final Offset center = Offset(size.width, (size.height/2) + 160);
+    final center = Offset(size.width, (size.height/2) + 160);
 
-    final Rect rectShape = Rect.fromLTWH(100, size.height-(320+160), 320, 640);
-    final Gradient gradient = LinearGradient(
+    final rectShape = Rect.fromLTWH(100, size.height-(320+160), 320, 640);
+    final gradient = LinearGradient(
       colors: [Colors.transparent, const Color(0xFF22B9FC).withOpacity(0.34), const Color(0xFF22B9FC)], 
       stops: const [0, 0.5 ,1],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter
     );  
         
-    final Paint paint = Paint()
+    final paint = Paint()
       ..shader = gradient.createShader(rectShape);
 
     canvas.drawCircle(center, 320, paint);
@@ -103,15 +93,15 @@ class LoginPainter2 extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
         
-    final Rect rectShape = Rect.fromLTWH(100, size.height-(320+160), 320, 640);
-    final Gradient gradient = LinearGradient(
+    final rectShape = Rect.fromLTWH(100, size.height-(320+160), 320, 640);
+    final gradient = LinearGradient(
       colors: [Colors.transparent, const Color(0xFF22B9FC).withOpacity(0.34), const Color(0xFF22B9FC)], 
       stops: const [0, 0.5 ,1],
       begin: Alignment.topCenter,
       end: Alignment.bottomCenter
     );  
         
-    final Paint paint = Paint()
+    final paint = Paint()
       ..shader = gradient.createShader(rectShape);
 
     canvas.drawPaint(paint);
