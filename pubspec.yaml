@@ -26,7 +26,6 @@ dependencies:
   animations: ^2.0.0
   carousel_slider: ^3.0.0
   connectivity: ^3.0.2
-  device_preview: ^0.6.2-beta
   flash: ^1.5.0
   flutter_svg: ^0.19.3
   get_it: ^6.0.0

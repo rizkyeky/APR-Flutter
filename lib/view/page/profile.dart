@@ -116,9 +116,11 @@ class ProfilePage extends Page<ProfileBloc> {
               padding: const EdgeInsets.all(24),
               child: MainTextField(
                 hint: 'Masukan kode promo',
-                suffix: GestureDetector(
+                suffix: InkWell(
                   onTap: () {},
                   child: Container(
+                    height: 54,
+                    width: 54,
                     decoration: BoxDecoration(
                       color: colorScheme['primary'],
                       borderRadius: const BorderRadius.horizontal(right: Radius.circular(12)),

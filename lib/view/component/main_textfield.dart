@@ -10,8 +10,6 @@ class MainTextField extends StatelessWidget {
   final bool enabled;
   final Widget suffix;
 
-
-
   const MainTextField({
     this.hint,
     this.contentPadding,
@@ -22,18 +20,10 @@ class MainTextField extends StatelessWidget {
     this.enabled = true,
   });
 
-  @override
-  Widget build(BuildContext context) {
-
-    final controller = TextEditingController();
-    final textFieldFocusNode = FocusNode();
-
+  Widget buildTextField() {
     return TextField(
-      controller: controller,
       maxLines: maxLines,
       onChanged: onChanged,
-      
-      focusNode: textFieldFocusNode,
       style: const TextStyle(
         color: Color(0xFF464646),
         fontWeight: FontWeight.normal,
@@ -46,7 +36,6 @@ class MainTextField extends StatelessWidget {
         ),
         filled: true,
         fillColor: colorScheme['background2'],
-        suffixIcon: suffix,
         isDense: true,
         contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 18),
         border: const OutlineInputBorder(
@@ -55,5 +44,16 @@ class MainTextField extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return (suffix != null) ? Stack(
+      alignment: Alignment.centerRight,
+      children: [
+        buildTextField(),
+        suffix,
+      ],
+    ) : buildTextField();
   }
 }
